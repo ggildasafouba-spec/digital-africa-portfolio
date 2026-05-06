@@ -1,4 +1,4 @@
-# Portfolio - TonNom
+# Portfolio - Germain AFOUBA
 
 Développeur web et mobile spécialisé dans les solutions business.
 
