@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Démo Restaurant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f8fafc;
+      color: #0f172a;
+      padding: 20px;
+    }
+
+    header {
+      background: #0f172a;
+      color: white;
+      padding: 35px 20px;
+      text-align: center;
+      border-radius: 20px;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: #cbd5e1;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 25px;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .item {
+      background: white;
+      padding: 20px;
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+
+    .item-img {
+      height: 150px;
+      background: linear-gradient(135deg, #ef4444, #f97316);
+      color: white;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .item h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .item p {
+      color: #64748b;
+      margin-bottom: 12px;
+    }
+
+    .price {
+      font-size: 22px;
+      font-weight: bold;
+      color: #ef4444;
+      margin-bottom: 15px;
+    }
+
+    button {
+      border: none;
+      background: #ef4444;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #dc2626;
+    }
+
+    .cart {
+      background: white;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      height: fit-content;
+      position: sticky;
+      top: 20px;
+    }
+
+    .cart h2 {
+      margin-bottom: 20px;
+    }
+
+    .cart-item {
+      padding: 10px 0;
+      border-bottom: 1px solid #e5e7eb;
+      color: #334155;
+    }
+
+    .total {
+      font-size: 22px;
+      font-weight: bold;
+      margin: 20px 0;
+      color: #0f172a;
+    }
+
+    .order-btn {
+      width: 100%;
+      background: #16a34a;
+    }
+
+    .order-btn:hover {
+      background: #15803d;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #2563eb;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    @media (max-width: 800px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .menu {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<a href="index.html#projets" class="back">← Retour au portfolio</a>
+
+<header>
+  <h1>Restaurant Démo</h1>
+  <p>Menu digital avec panier et commande via WhatsApp</p>
+</header>
+
+<div class="container">
+
+  <div class="menu">
+
+    <div class="item">
+      <div class="item-img">Burger</div>
+      <h3>Burger Maison</h3>
+      <p>Burger complet avec steak, fromage, salade et sauce spéciale.</p>
+      <div class="price">8€</div>
+      <button onclick="addToCart('Burger Maison', 8)">Ajouter au panier</button>
+    </div>
+
+    <div class="item">
+      <div class="item-img">Pizza</div>
+      <h3>Pizza Poulet</h3>
+      <p>Pizza généreuse au poulet, fromage, poivrons et sauce tomate.</p>
+      <div class="price">12€</div>
+      <button onclick="addToCart('Pizza Poulet', 12)">Ajouter au panier</button>
+    </div>
+
+    <div class="item">
+      <div class="item-img">Tacos</div>
+      <h3>Tacos Viande</h3>
+      <p>Tacos garni avec viande, frites, fromage et sauce au choix.</p>
+      <div class="price">9€</div>
+      <button onclick="addToCart('Tacos Viande', 9)">Ajouter au panier</button>
+    </div>
+
+    <div class="item">
+      <div class="item-img">Jus</div>
+      <h3>Jus Naturel</h3>
+      <p>Boisson fraîche naturelle : bissap, gingembre ou mangue.</p>
+      <div class="price">3€</div>
+      <button onclick="addToCart('Jus Naturel', 3)">Ajouter au panier</button>
+    </div>
+
+  </div>
+
+  <aside class="cart">
+    <h2>Votre commande</h2>
+
+    <div id="cartItems">
+      <p>Aucun produit ajouté.</p>
+    </div>
+
+    <div class="total" id="total">Total : 0€</div>
+
+    <button class="order-btn" onclick="sendOrder()">Commander sur WhatsApp</button>
+  </aside>
+
+</div>
+
+<script>
+  let cart = [];
+
+  function addToCart(name, price) {
+    cart.push({ name, price });
+    displayCart();
+  }
+
+  function displayCart() {
+    const cartItems = document.getElementById("cartItems");
+    const totalElement = document.getElementById("total");
+
+    cartItems.innerHTML = "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+      total += item.price;
+      cartItems.innerHTML += `
+        <div class="cart-item">
+          ${item.name} - ${item.price}€
+          <button onclick="removeItem(${index})" style="float:right;padding:5px 8px;font-size:12px;">x</button>
+        </div>
+      `;
+    });
+
+    if (cart.length === 0) {
+      cartItems.innerHTML = "<p>Aucun produit ajouté.</p>";
+    }
+
+    totalElement.innerText = "Total : " + total + "€";
+  }
+
+  function removeItem(index) {
+    cart.splice(index, 1);
+    displayCart();
+  }
+
+  function sendOrder() {
+    if (cart.length === 0) {
+      alert("Votre panier est vide.");
+      return;
+    }
+
+    const numero = "+33609231509";
+    let message = "Bonjour, je souhaite passer cette commande :%0A";
+
+    cart.forEach(item => {
+      message += `- ${item.name} : ${item.price}€%0A`;
+    });
+
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    message += `%0ATotal : ${total}€`;
+
+    window.open(`https://wa.me/${numero}?text=${message}`, "_blank");
+  }
+</script>
+
+</body>
+</html>

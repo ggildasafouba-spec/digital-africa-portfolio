@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Démo Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f8fafc;
+      color: #0f172a;
+      padding: 20px;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #2563eb;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    header {
+      background: #0f172a;
+      color: white;
+      padding: 35px 20px;
+      border-radius: 20px;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: #cbd5e1;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+
+    .stat-card h3 {
+      color: #64748b;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .stat-card p {
+      font-size: 30px;
+      font-weight: bold;
+      color: #2563eb;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 25px;
+    }
+
+    .form-box,
+    .table-box {
+      background: white;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+
+    .form-box h2,
+    .table-box h2 {
+      margin-bottom: 20px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+    }
+
+    button {
+      border: none;
+      background: #2563eb;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 14px;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+    }
+
+    th {
+      color: #475569;
+    }
+
+    .status {
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .en-cours {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .livre {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .annule {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .delete-btn {
+      background: #ef4444;
+      padding: 7px 12px;
+      font-size: 13px;
+    }
+
+    .delete-btn:hover {
+      background: #dc2626;
+    }
+
+    @media (max-width: 900px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<a href="index.html#projets" class="back">← Retour au portfolio</a>
+
+<header>
+  <h1>Dashboard Démo</h1>
+  <p>Gestion simple des clients, commandes et statuts</p>
+</header>
+
+<section class="stats">
+  <div class="stat-card">
+    <h3>Clients</h3>
+    <p id="clientCount">3</p>
+  </div>
+
+  <div class="stat-card">
+    <h3>Commandes</h3>
+    <p id="orderCount">3</p>
+  </div>
+
+  <div class="stat-card">
+    <h3>En cours</h3>
+    <p id="pendingCount">2</p>
+  </div>
+
+  <div class="stat-card">
+    <h3>Chiffre estimé</h3>
+    <p id="revenue">260€</p>
+  </div>
+</section>
+
+<section class="dashboard">
+
+  <div class="form-box">
+    <h2>Ajouter une commande</h2>
+
+    <input type="text" id="clientName" placeholder="Nom du client">
+    <input type="text" id="orderName" placeholder="Commande">
+    <input type="number" id="amount" placeholder="Montant">
+
+    <select id="status">
+      <option value="En cours">En cours</option>
+      <option value="Livré">Livré</option>
+      <option value="Annulé">Annulé</option>
+    </select>
+
+    <button onclick="addOrder()">Ajouter</button>
+  </div>
+
+  <div class="table-box">
+    <h2>Liste des commandes</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Client</th>
+          <th>Commande</th>
+          <th>Montant</th>
+          <th>Statut</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody id="ordersTable"></tbody>
+    </table>
+  </div>
+
+</section>
+
+<script>
+  let orders = [
+    { client: "Awa Traoré", order: "Catalogue boutique", amount: 120, status: "En cours" },
+    { client: "Jean Kouassi", order: "Menu digital", amount: 80, status: "Livré" },
+    { client: "Fatou Diallo", order: "Dashboard client", amount: 60, status: "En cours" }
+  ];
+
+  function renderOrders() {
+    const table = document.getElementById("ordersTable");
+    table.innerHTML = "";
+
+    orders.forEach((item, index) => {
+      let statusClass = "";
+
+      if (item.status === "En cours") statusClass = "en-cours";
+      if (item.status === "Livré") statusClass = "livre";
+      if (item.status === "Annulé") statusClass = "annule";
+
+      table.innerHTML += `
+        <tr>
+          <td>${item.client}</td>
+          <td>${item.order}</td>
+          <td>${item.amount}€</td>
+          <td><span class="status ${statusClass}">${item.status}</span></td>
+          <td><button class="delete-btn" onclick="deleteOrder(${index})">Supprimer</button></td>
+        </tr>
+      `;
+    });
+
+    updateStats();
+  }
+
+  function addOrder() {
+    const clientName = document.getElementById("clientName").value;
+    const orderName = document.getElementById("orderName").value;
+    const amount = document.getElementById("amount").value;
+    const status = document.getElementById("status").value;
+
+    if (!clientName || !orderName || !amount) {
+      alert("Veuillez remplir tous les champs.");
+      return;
+    }
+
+    orders.push({
+      client: clientName,
+      order: orderName,
+      amount: Number(amount),
+      status: status
+    });
+
+    document.getElementById("clientName").value = "";
+    document.getElementById("orderName").value = "";
+    document.getElementById("amount").value = "";
+    document.getElementById("status").value = "En cours";
+
+    renderOrders();
+  }
+
+  function deleteOrder(index) {
+    orders.splice(index, 1);
+    renderOrders();
+  }
+
+  function updateStats() {
+    const clients = new Set(orders.map(item => item.client));
+    const pending = orders.filter(item => item.status === "En cours").length;
+    const revenue = orders.reduce((sum, item) => sum + item.amount, 0);
+
+    document.getElementById("clientCount").innerText = clients.size;
+    document.getElementById("orderCount").innerText = orders.length;
+    document.getElementById("pendingCount").innerText = pending;
+    document.getElementById("revenue").innerText = revenue + "€";
+  }
+
+  renderOrders();
+</script>
+
+</body>
+</html>

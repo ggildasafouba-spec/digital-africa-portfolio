@@ -1,0 +1,466 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+/* NAVBAR */
+.header {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar {
+  max-width: 1200px;
+  margin: auto;
+  padding: 15px 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 200px;
+  width: auto;
+}
+
+/* MENU */
+.nav-links {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #334155;
+  font-weight: 600;
+}
+
+.nav-links a:hover {
+  color: #2563eb;
+}
+
+.nav-cta {
+  background: #2563eb;
+  color: white !important;
+  padding: 8px 15px;
+  border-radius: 20px;
+}
+
+/* MENU MOBILE */
+.menu-btn {
+  display: none;
+  font-size: 25px;
+  background: none;
+  border: none;
+}
+
+/* HERO */
+.hero {
+  max-width: 1200px;
+  margin: auto;
+  padding: 80px 20px;
+
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.badge {
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 6px 15px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.hero h1 {
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+
+.hero-text {
+  color: #64748b;
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+/* BUTTONS */
+.btn {
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.btn.primary {
+  background: #2563eb;
+  color: white;
+}
+
+.btn.secondary {
+  border: 1px solid #2563eb;
+  color: #2563eb;
+}
+
+/* HERO CARD */
+.hero-card {
+  background: #0f172a;
+  color: white;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.hero-card li {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+/* SECTIONS */
+section {
+  padding: 70px 20px;
+}
+
+section h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 35px;
+}
+
+/* GRID */
+.grid {
+  max-width: 1200px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* CARDS */
+.card,
+.service-card,
+.project-card,
+.price-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  border: 1px solid #e5e7eb;
+}
+
+.card h3,
+.service-card h3,
+.project-card h3,
+.price-card h3 {
+  margin-bottom: 10px;
+}
+
+.card p,
+.service-card p,
+.project-card p {
+  color: #64748b;
+}
+
+/* PROJECT */
+.project-img {
+  height: 150px;
+  background: #2563eb;
+  border-radius: 10px;
+  margin-bottom: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+}
+
+/* PRICING */
+.price {
+  font-size: 25px;
+  color: #2563eb;
+  margin-bottom: 15px;
+}
+
+/* CONTACT */
+.contact {
+  text-align: center;
+}
+
+.contact-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 30px 20px;
+  background: #0f172a;
+  color: white;
+  border-top: 1px solid #1e293b;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.footer p {
+  margin: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .menu-btn {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: white;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    left: 20px;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 35px;
+  }
+}
+.project-btn {
+  display: inline-block;
+  margin-top: 20px;
+}
+/* AMÉLIORATION VISIBILITÉ DES SECTIONS */
+
+.problems,
+.services,
+.projects {
+  padding-top: 90px;
+  padding-bottom: 90px;
+}
+
+.problems h2,
+.services h2,
+.projects h2 {
+  font-size: 42px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 45px;
+  text-align: center;
+  letter-spacing: -1px;
+}
+
+.card h3,
+.service-card h3,
+.project-card h3 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 14px;
+}
+
+.card p,
+.service-card p,
+.project-card p {
+  font-size: 17px;
+  color: #334155;
+  line-height: 1.7;
+}
+
+.service-card span {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 800;
+  color: #2563eb;
+  margin-bottom: 10px;
+}
+
+.card,
+.service-card,
+.project-card {
+  border: 1px solid #dbeafe;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+}
+
+.project-img {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+/* Responsive mobile */
+@media (max-width: 600px) {
+  .problems h2,
+  .services h2,
+  .projects h2 {
+    font-size: 32px;
+  }
+
+  .card h3,
+  .service-card h3,
+  .project-card h3 {
+    font-size: 21px;
+  }
+
+  .card p,
+  .service-card p,
+  .project-card p {
+    font-size: 16px;
+  }
+}
+/* AMÉLIORATION SECTION TARIFS */
+
+.pricing h2 {
+  font-size: 42px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 45px;
+  text-align: center;
+  letter-spacing: -1px;
+}
+
+.price-card h3 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: #0f172a;
+}
+
+.price {
+  font-size: 28px;
+  font-weight: 800;
+  color: #2563eb;
+  margin-bottom: 15px;
+}
+
+.price-card li {
+  font-size: 16px;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.price-card {
+  border: 1px solid #dbeafe;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+}
+
+
+/* AMÉLIORATION SECTION CONTACT */
+
+.contact h2 {
+  font-size: 40px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.contact p {
+  font-size: 18px;
+  color: #334155;
+  max-width: 600px;
+  margin: 0 auto 30px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.contact-buttons {
+  margin-top: 20px;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 600px) {
+
+  .pricing h2,
+  .contact h2 {
+    font-size: 30px;
+  }
+
+  .price-card h3 {
+    font-size: 20px;
+  }
+
+  .price {
+    font-size: 24px;
+  }
+
+  .contact p {
+    font-size: 16px;
+  }
+}
+/* AMÉLIORATION GLOBALE DES TITRES H2 */
+
+h2 {
+  font-size: 42px;
+  font-weight: 800;
+  color: #0f172a;
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  letter-spacing: -1px;
+}
+
+/* Ligne décorative sous les titres */
+h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #2563eb;
+  margin: 12px auto 0;
+  border-radius: 10px;
+}
+@media (max-width: 600px) {
+  h2 {
+    font-size: 30px;
+  }
+}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Boutique Demo</title>
+
+<style>
+body {
+  font-family: Arial;
+  padding: 20px;
+  background: #f8fafc;
+}
+
+h1 {
+  text-align: center;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cart {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.cart-item {
+  margin-bottom: 10px;
+}
+
+.total {
+  font-weight: bold;
+  margin-top: 20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Boutique Demo</h1>
+
+<div class="container">
+
+<div class="products">
+
+  <div class="card">
+    <img src="https://picsum.photos/200" />
+    <h3>Produit 1</h3>
+    <p>10€</p>
+    <button onclick="addToCart('Produit 1', 10)">Ajouter</button>
+  </div>
+
+  <div class="card">
+    <img src="https://picsum.photos/201" />
+    <h3>Produit 2</h3>
+    <p>15€</p>
+    <button onclick="addToCart('Produit 2', 15)">Ajouter</button>
+  </div>
+
+</div>
+
+<div class="cart">
+  <h2>Panier</h2>
+  <div id="cartItems"></div>
+  <div class="total" id="total">Total : 0€</div>
+
+  <button onclick="order()">Commander</button>
+</div>
+
+</div>
+
+<script>
+let cart = [];
+
+function addToCart(name, price) {
+  cart.push({ name, price });
+  displayCart();
+}
+
+function displayCart() {
+  const cartItems = document.getElementById("cartItems");
+  const totalEl = document.getElementById("total");
+
+  cartItems.innerHTML = "";
+
+  let total = 0;
+
+  cart.forEach(item => {
+    cartItems.innerHTML += `<div class="cart-item">${item.name} - ${item.price}€</div>`;
+    total += item.price;
+  });
+
+  totalEl.innerText = "Total : " + total + "€";
+}
+
+function order() {
+  let message = "Commande : ";
+  cart.forEach(item => {
+    message += item.name + ", ";
+  });
+
+  window.open(`https://wa.me/+33609231509?text=${encodeURIComponent(message)}`);
+}
+</script>
+
+</body>
+</html>
